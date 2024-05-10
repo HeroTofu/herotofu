@@ -40,7 +40,7 @@ Get a free form endpoint URL at [https://herotofu.com](https://herotofu.com/form
 
 - for npm:
   ```sh
-  npm install herotofu-react
+  npm install herotofu-react --save
   ```
 - or for yarn:
   ```sh
@@ -150,10 +150,7 @@ _For more examples, please refer to the [Guides](https://herotofu.com/solutions/
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+If you have a suggestion that would make this better, please fork the repo and create a pull request.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -167,7 +164,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-info@herotofu.com
+- support@herotofu.com
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

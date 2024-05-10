@@ -1,6 +1,6 @@
 {
   "name": "herotofu-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Various helpers to work with APIs that herotofu.com provides, such as form endpoints.",
   "main": "dist/herotofu-react.cjs.js",
   "module": "dist/herotofu-react.esm.js",
@@ -26,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/HeroTofu/herotofu/issues"
   },
-  "homepage": "https://github.com/HeroTofu/herotofu#readme",
+  "homepage": "https://github.com/herotofu/herotofu/tree/main/packages/react#readme",
   "devDependencies": {
     "@testing-library/react": "^15.0.7",
     "@testing-library/react-hooks": "^8.0.1",

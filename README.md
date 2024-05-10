@@ -34,7 +34,7 @@ See the individual packages for more information:
 
 ## Contact
 
-- info@herotofu.com
+- support@herotofu.com
 
 [issues-shield]: https://img.shields.io/github/issues/herotofu/herotofu.svg?style=for-the-badge
 [issues-url]: https://github.com/herotofu/herotofu/issues
