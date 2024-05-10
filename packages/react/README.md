@@ -65,14 +65,14 @@ import { useFormData } from 'herotofu-react';
 function ExampleComponent() {
   const { state: formState, handleFormSubmit } = useFormData('HEROTOFU_FORM_ID_OR_URL');
 
-  const onSubmit = ({ status, data }) => {
+  const onSubmitCallback = ({ status, data }) => {
     console.log(`The form finished submission in status: ${status} and data: ${JSON.stringify(data)}`);
   };
 
   return (
     <>
       {!!status && <div>Current form status is: {formState.status}</div>}
-      <form onSubmit={handleFormSubmit(onSubmit)}>
+      <form onSubmit={handleFormSubmit(onSubmitCallback)}>
         <div>
           <input type="text" name="name" placeholder="Your name" />
         </div>
@@ -87,6 +87,25 @@ function ExampleComponent() {
 }
 ```
 
+If you want to include additional data that won't be presented in the form, pass it as a second argument to the `useFormData` hook:
+
+```tsx
+const { state: formState, handleFormSubmit } = useFormData('HEROTOFU_FORM_ID_OR_URL', {
+  additionalData: 'any string or number',
+});
+```
+
+The `onSubmitCallback` is optional and can be skipped:
+
+```tsx
+
+const { state: formState, handleFormSubmit } = useFormData('HEROTOFU_FORM_ID_OR_URL');
+
+return (
+  <form onSubmit={handleFormSubmit()}>
+  ...rest of the code
+```
+
 ### useJsonData()
 
 Sends application/json requests even without an actual form.
@@ -97,13 +116,13 @@ import { useJsonData } from 'herotofu-react';
 function ExampleComponent() {
   const { state, sendData } = useJsonData('HEROTOFU_FORM_ID_OR_URL');
 
-  const onSubmit = ({status, data}) => {
+  const onSubmitCallback = ({status, data}) => {
     console.log(`The data was sent with status: ${status} and data: ${JSON.stringify(data)}`);
   };
 
   const handleButtonClick = () => {
     const dataToSend = { name: 'Joe Bloggs', email: 'joe.bloggs@example.com' };
-    sendData(onSubmit, dataToSend);
+    sendData(onSubmitCallback, dataToSend);
   }
 
   ...
@@ -127,12 +146,12 @@ import { useSubscribeEmail } from 'herotofu-react';
 function ExampleComponent() {
   const { state: subscribeState, subscribe } = useSubscribeEmail('HEROTOFU_FORM_ID_OR_URL');
 
-  const onSubmit = ({ status, data }) => {
+  const onSubmitCallback = ({ status, data }) => {
     console.log(`The user was subscribed with status: ${status} and data: ${JSON.stringify(data)}`);
   };
 
   const handleButtonClick = () => {
-    subscribe('joe.bloggs@example.com', onSubmit);
+    subscribe('joe.bloggs@example.com', onSubmitCallback);
   };
 
   return (
