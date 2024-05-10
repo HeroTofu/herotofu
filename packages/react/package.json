@@ -1,5 +1,5 @@
 {
-  "name": "@herotofu/react",
+  "name": "herotofu-react",
   "version": "1.0.0",
   "description": "Various helpers to work with APIs that herotofu.com provides, such as form endpoints.",
   "main": "dist/herotofu-react.cjs.js",

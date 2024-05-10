@@ -1,5 +1,5 @@
 {
-  "name": "@herotofu/herotofu",
+  "name": "herotofu",
   "version": "1.0.0",
   "description": "Various helpers to work with APIs that herotofu.com provides, such as form endpoints.",
   "packageManager": "yarn@4.1.1",

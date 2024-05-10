@@ -40,15 +40,15 @@ Get a free form endpoint URL at [https://herotofu.com](https://herotofu.com/form
 
 - for npm:
   ```sh
-  npm install @herotofu/react
+  npm install herotofu-react
   ```
 - or for yarn:
   ```sh
-  yarn add @herotofu/react
+  yarn add herotofu-react
   ```
 - or for pnpm:
   ```sh
-  pnpm add @herotofu/react
+  pnpm add herotofu-react
   ```
 
 2. Have your form endpoint URL.
@@ -60,7 +60,7 @@ Get a free form endpoint URL at [https://herotofu.com](https://herotofu.com/form
 Sends the `multipart/form-data` request. Can process file uploads, too.
 
 ```tsx
-import { useFormData } from '@herotofu/react';
+import { useFormData } from 'herotofu-react';
 
 function ExampleComponent() {
   const { state: formState, handleFormSubmit } = useFormData('HEROTOFU_FORM_ID_OR_URL');
@@ -92,7 +92,7 @@ function ExampleComponent() {
 Sends application/json requests even without an actual form.
 
 ```tsx
-import { useJsonData } from '@herotofu/react';
+import { useJsonData } from 'herotofu-react';
 
 function ExampleComponent() {
   const { state, sendData } = useJsonData('HEROTOFU_FORM_ID_OR_URL');
@@ -122,7 +122,7 @@ function ExampleComponent() {
 Lightly validates the provided email and sends it to the backend.
 
 ```tsx
-import { useSubscribeEmail } from '@herotofu/react';
+import { useSubscribeEmail } from 'herotofu-react';
 
 function ExampleComponent() {
   const { state: subscribeState, subscribe } = useSubscribeEmail('HEROTOFU_FORM_ID_OR_URL');

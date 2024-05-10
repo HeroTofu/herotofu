@@ -1459,9 +1459,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@herotofu/herotofu@workspace:.":
+"herotofu@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@herotofu/herotofu@workspace:."
+  resolution: "herotofu@workspace:."
   dependencies:
     "@babel/core": "npm:^7.24.4"
     "@babel/preset-env": "npm:^7.24.4"
@@ -1475,9 +1475,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@herotofu/react@workspace:packages/react":
+"herotofu-react@workspace:packages/react":
   version: 0.0.0-use.local
-  resolution: "@herotofu/react@workspace:packages/react"
+  resolution: "herotofu-react@workspace:packages/react"
   dependencies:
     "@testing-library/react": "npm:^15.0.4"
     "@testing-library/react-hooks": "npm:^8.0.1"
