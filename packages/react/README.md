@@ -15,7 +15,7 @@
   <p align="center">
     React library that will handle form submissions and send FormData or raw JSON effortlessly.
     <br />
-    <a href="https://github.com/herotofu/herotofu/blob/master/packages/react"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/herotofu/herotofu/blob/main/packages/react"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/herotofu/herotofu/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
@@ -174,7 +174,7 @@ info@herotofu.com
 [issues-shield]: https://img.shields.io/github/issues/herotofu/herotofu.svg?style=for-the-badge
 [issues-url]: https://github.com/herotofu/herotofu/issues
 [license-shield]: https://img.shields.io/github/license/herotofu/herotofu.svg?style=for-the-badge
-[license-url]: https://github.com/herotofu/herotofu/blob/master/LICENSE
+[license-url]: https://github.com/herotofu/herotofu/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/arminaszukauskas
 [product-screenshot]: images/screenshot.png
