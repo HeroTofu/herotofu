@@ -1,0 +1,42 @@
+{
+  "name": "@herotofu/herotofu",
+  "version": "1.0.0",
+  "description": "Various helpers to work with APIs that herotofu.com provides, such as form endpoints.",
+  "packageManager": "yarn@4.1.1",
+  "preconstruct": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "build": "preconstruct build",
+    "publish": "yarn workspaces foreach -A npm publish --tolerate-republish --access public",
+    "test": "yarn workspaces foreach -A run test",
+    "postinstall": "preconstruct dev",
+    "release": "yarn build && yarn publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HeroTofu/herotofu"
+  },
+  "author": "support@herotofu.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HeroTofu/herotofu/issues"
+  },
+  "homepage": "https://github.com/HeroTofu/herotofu#readme",
+  "devDependencies": {
+    "@babel/core": "^7.24.4",
+    "@babel/preset-env": "^7.24.4",
+    "@babel/preset-typescript": "^7.24.1",
+    "@preconstruct/cli": "^2.8.3",
+    "@total-typescript/ts-reset": "^0.5.1",
+    "eslint": "^9.1.1",
+    "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}

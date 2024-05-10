@@ -1,0 +1,1 @@
+{ "babelrcRoots": [".", "packages/*"], "presets": ["@babel/preset-env", "@babel/preset-typescript"] }
