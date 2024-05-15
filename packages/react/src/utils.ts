@@ -2,7 +2,6 @@ import type { FormId, InjectedData } from './types';
 
 const HEROTOFU_STATUS_RATELIMIT = 429;
 const HEROTOFU_STATUS_SPAMBOT = 422;
-const HEROTOFU_STATUS_SUCCESS = 200;
 
 function getFormEndpoint(formId: FormId): string {
   return formId.startsWith('https://') ? formId : `https://public.herotofu.com/v1/${formId}`;
@@ -23,6 +22,7 @@ async function fetchWithTimeout(resource: string, options: { timeout?: number } 
   const id = setTimeout(() => controller.abort(), timeout);
 
   const response = await fetch(resource, {
+    redirect: 'manual',
     ...options,
     signal: controller.signal,
   });
@@ -32,11 +32,4 @@ async function fetchWithTimeout(resource: string, options: { timeout?: number } 
   return response;
 }
 
-export {
-  HEROTOFU_STATUS_RATELIMIT,
-  HEROTOFU_STATUS_SPAMBOT,
-  HEROTOFU_STATUS_SUCCESS,
-  getFormEndpoint,
-  filterInjectedData,
-  fetchWithTimeout,
-};
+export { HEROTOFU_STATUS_RATELIMIT, HEROTOFU_STATUS_SPAMBOT, getFormEndpoint, filterInjectedData, fetchWithTimeout };

@@ -1,6 +1,6 @@
 {
   "name": "herotofu-react",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Various helpers to work with APIs that herotofu.com provides, such as form endpoints.",
   "main": "dist/herotofu-react.cjs.js",
   "module": "dist/herotofu-react.esm.js",

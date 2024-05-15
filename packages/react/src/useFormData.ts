@@ -1,8 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import {
   HEROTOFU_STATUS_RATELIMIT,
   HEROTOFU_STATUS_SPAMBOT,
-  HEROTOFU_STATUS_SUCCESS,
   fetchWithTimeout,
   filterInjectedData,
   getFormEndpoint,
@@ -10,7 +9,7 @@ import {
 import type {
   RequestCallback,
   RequestState,
-  FormSubmitHandler,
+  GetFormSubmitHandler,
   InjectedData,
   FormId,
   RequestOptions,
@@ -18,23 +17,29 @@ import type {
 } from './types';
 
 function useFormData(formIdOrUrl: FormId, options: RequestOptions = {}): UseFormDataReturn {
-  const [state, setState] = useState<RequestState>({ status: undefined });
+  const shouldBlockFormSubmit = useRef(false);
+  const [formState, setFormState] = useState<RequestState>({ status: 'not_initialized' });
 
   const updateState = useCallback((newState: RequestState, callbackOnComplete?: RequestCallback) => {
-    setState(newState);
+    shouldBlockFormSubmit.current = newState.status === 'loading';
+    setFormState(newState);
 
     if (newState.status === 'success' || newState.status === 'error') {
       callbackOnComplete?.(newState);
     }
   }, []);
 
-  const handleFormSubmit: FormSubmitHandler = useCallback(
+  const getFormSubmitHandler: GetFormSubmitHandler = useCallback(
     (callbackOnComplete?: RequestCallback, injectedData?: InjectedData) => {
       return async (formEvent: React.FormEvent) => {
         formEvent.preventDefault();
 
+        if (shouldBlockFormSubmit.current) {
+          return;
+        }
+
         const data = extractFormData(formEvent, injectedData);
-        setState({ status: 'loading', data });
+        updateState({ status: 'loading', data }, callbackOnComplete);
 
         try {
           let response = await fetchWithTimeout(getFormEndpoint(formIdOrUrl), {
@@ -65,8 +70,8 @@ function useFormData(formIdOrUrl: FormId, options: RequestOptions = {}): UseForm
             throw new Error('Please complete the captcha challenge');
           }
 
-          // Something went wrong
-          if (response.status !== HEROTOFU_STATUS_SUCCESS) {
+          // Something went wrong, the status is not within 200-399 range
+          if (response.status < 200 || response.status >= 400) {
             throw new Error(response.statusText);
           }
 
@@ -79,7 +84,7 @@ function useFormData(formIdOrUrl: FormId, options: RequestOptions = {}): UseForm
     [formIdOrUrl]
   );
 
-  return { state, handleFormSubmit, __dangerousUpdateState: updateState };
+  return { formState, getFormSubmitHandler, __dangerousUpdateState: updateState };
 }
 
 function extractFormData(formEvent: React.FormEvent, injectedData?: InjectedData) {
@@ -109,9 +114,12 @@ function submitHtmlForm(formAction: string, formEvent: React.FormEvent, injected
 
   // Let's submit the form again and spammer/bot will be redirected to another page automatically
   // Submitting via javascript will bypass calling this function again
-  form.setAttribute('target', '_blank');
   form.setAttribute('action', formAction);
+  form.setAttribute('target', '_blank');
+  form.setAttribute('method', 'POST');
   form.setAttribute('enctype', 'multipart/form-data');
+
+  document.body.appendChild(form);
   form.submit();
 }
 

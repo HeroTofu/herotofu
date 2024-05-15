@@ -63,7 +63,7 @@ Sends the `multipart/form-data` request. Can process file uploads, too.
 import { useFormData } from 'herotofu-react';
 
 function ExampleComponent() {
-  const { state: formState, handleFormSubmit } = useFormData('HEROTOFU_FORM_ID_OR_URL');
+  const { formState, getFormSubmitHandler } = useFormData('HEROTOFU_FORM_ID_OR_URL');
 
   const onSubmitCallback = ({ status, data }) => {
     console.log(`The form finished submission in status: ${status} and data: ${JSON.stringify(data)}`);
@@ -71,8 +71,8 @@ function ExampleComponent() {
 
   return (
     <>
-      {!!status && <div>Current form status is: {formState.status}</div>}
-      <form onSubmit={handleFormSubmit(onSubmitCallback)}>
+      {!!formState.status && <div>Current form status is: {formState.status}</div>}
+      <form onSubmit={getFormSubmitHandler(onSubmitCallback)}>
         <div>
           <input type="text" name="name" placeholder="Your name" />
         </div>
@@ -90,7 +90,7 @@ function ExampleComponent() {
 If you want to include additional data that won't be presented in the form, pass it as a second argument to the `useFormData` hook:
 
 ```tsx
-const { state: formState, handleFormSubmit } = useFormData('HEROTOFU_FORM_ID_OR_URL', {
+const { formState, getFormSubmitHandler } = useFormData('HEROTOFU_FORM_ID_OR_URL', {
   additionalData: 'any string or number',
 });
 ```
@@ -99,10 +99,10 @@ The `onSubmitCallback` is optional and can be skipped:
 
 ```tsx
 
-const { state: formState, handleFormSubmit } = useFormData('HEROTOFU_FORM_ID_OR_URL');
+const { formState, getFormSubmitHandler } = useFormData('HEROTOFU_FORM_ID_OR_URL');
 
 return (
-  <form onSubmit={handleFormSubmit()}>
+  <form onSubmit={getFormSubmitHandler()}>
   ...rest of the code
 ```
 
@@ -114,7 +114,7 @@ Sends application/json requests even without an actual form.
 import { useJsonData } from 'herotofu-react';
 
 function ExampleComponent() {
-  const { state, sendData } = useJsonData('HEROTOFU_FORM_ID_OR_URL');
+  const { dataState, sendData } = useJsonData('HEROTOFU_FORM_ID_OR_URL');
 
   const onSubmitCallback = ({status, data}) => {
     console.log(`The data was sent with status: ${status} and data: ${JSON.stringify(data)}`);
@@ -129,7 +129,7 @@ function ExampleComponent() {
 
   return (
     <>
-      {!!status && <div>Current requests status is: {state.status}</div>}
+      {!!dataState && <div>Current requests status is: {dataState.status}</div>}
       <div><button onClick={handleButtonClick()}>Send JSON data</button></div>
     </>
   );
@@ -144,7 +144,7 @@ Lightly validates the provided email and sends it to the backend.
 import { useSubscribeEmail } from 'herotofu-react';
 
 function ExampleComponent() {
-  const { state: subscribeState, subscribe } = useSubscribeEmail('HEROTOFU_FORM_ID_OR_URL');
+  const { subscribeState, subscribe } = useSubscribeEmail('HEROTOFU_FORM_ID_OR_URL');
 
   const onSubmitCallback = ({ status, data }) => {
     console.log(`The user was subscribed with status: ${status} and data: ${JSON.stringify(data)}`);
@@ -156,7 +156,7 @@ function ExampleComponent() {
 
   return (
     <>
-      {!!status && <div>Current requests status is: {state.status}</div>}
+      {!!subscribeState && <div>Current requests status is: {subscribeState.status}</div>}
       <div>
         <button onClick={handleButtonClick()}>Send JSON data</button>
       </div>

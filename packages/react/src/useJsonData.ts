@@ -2,7 +2,6 @@ import { useState, useCallback } from 'react';
 import {
   HEROTOFU_STATUS_RATELIMIT,
   HEROTOFU_STATUS_SPAMBOT,
-  HEROTOFU_STATUS_SUCCESS,
   fetchWithTimeout,
   filterInjectedData,
   getFormEndpoint,
@@ -10,10 +9,10 @@ import {
 import type { RequestCallback, RequestState, InjectedData, FormId, RequestOptions, UseJsonDataReturn } from './types';
 
 function useJsonData(formIdOrUrl: FormId, options: RequestOptions = {}): UseJsonDataReturn {
-  const [state, setState] = useState<RequestState>({ status: undefined });
+  const [dataState, setDataState] = useState<RequestState>({ status: 'not_initialized' });
 
   const updateState = useCallback((newState: RequestState, callbackOnComplete?: RequestCallback) => {
-    setState(newState);
+    setDataState(newState);
 
     if (newState.status === 'success' || newState.status === 'error') {
       callbackOnComplete?.(newState);
@@ -62,7 +61,7 @@ function useJsonData(formIdOrUrl: FormId, options: RequestOptions = {}): UseJson
           throw new Error('Please complete the captcha challenge');
         }
 
-        if (response.status !== HEROTOFU_STATUS_SUCCESS) {
+        if (response.status < 200 || response.status >= 400) {
           throw new Error(response.statusText);
         }
 
@@ -74,7 +73,7 @@ function useJsonData(formIdOrUrl: FormId, options: RequestOptions = {}): UseJson
     [formIdOrUrl]
   );
 
-  return { state, sendData, __dangerousUpdateState: updateState };
+  return { dataState, sendData, __dangerousUpdateState: updateState };
 }
 
 function submitHtmlForm(formIdOrUrl: FormId, injectedData?: InjectedData) {
@@ -94,10 +93,11 @@ function submitHtmlForm(formIdOrUrl: FormId, injectedData?: InjectedData) {
   // Let's submit the form again and spammer/bot will be redirected to another page automatically
   // Submitting via javascript will bypass calling this function again
   form.setAttribute('action', getFormEndpoint(formIdOrUrl));
+  form.setAttribute('method', 'POST');
   form.setAttribute('target', '_blank');
-  form.submit();
 
   document.body.appendChild(form);
+  form.submit();
 }
 
 export { useJsonData };
