@@ -313,7 +313,7 @@ function setupHtmlForm(additionalData: Record<string, string> = {}) {
 
   const formEvent = {
     preventDefault: jest.fn(),
-    currentTarget: formElement,
+    target: formElement,
   } as unknown as React.FormEvent;
 
   const expectedFormData = new FormData();

@@ -61,7 +61,8 @@ function useJsonData(formIdOrUrl: FormId, options: RequestOptions = {}): UseJson
           throw new Error('Please complete the captcha challenge');
         }
 
-        if (response.status < 200 || response.status >= 400) {
+        // Something went wrong, the status is not within the 200-399 range
+        if ((response.status < 200 || response.status >= 400) && response.type !== 'opaqueredirect') {
           throw new Error(response.statusText);
         }
 

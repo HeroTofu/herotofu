@@ -12,7 +12,7 @@
     "build": "preconstruct build",
     "test": "yarn workspaces foreach -A run test",
     "postinstall": "preconstruct dev",
-    "release": "yarn build && cd packages/react && npm publish --tolerate-republish --access public && cd ../../"
+    "release": "yarn test && yarn build && cd packages/react && npm publish --tolerate-republish --access public && cd ../../"
   },
   "repository": {
     "type": "git",

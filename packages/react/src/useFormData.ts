@@ -70,8 +70,8 @@ function useFormData(formIdOrUrl: FormId, options: RequestOptions = {}): UseForm
             throw new Error('Please complete the captcha challenge');
           }
 
-          // Something went wrong, the status is not within 200-399 range
-          if (response.status < 200 || response.status >= 400) {
+          // Something went wrong, the status is not within the 200-399 range
+          if ((response.status < 200 || response.status >= 400) && response.type !== 'opaqueredirect') {
             throw new Error(response.statusText);
           }
 
@@ -88,7 +88,7 @@ function useFormData(formIdOrUrl: FormId, options: RequestOptions = {}): UseForm
 }
 
 function extractFormData(formEvent: React.FormEvent, injectedData?: InjectedData) {
-  const form = formEvent.currentTarget as HTMLFormElement;
+  const form = formEvent.target as HTMLFormElement;
   const formData = new FormData(form);
 
   Object.entries(filterInjectedData(injectedData)).forEach(([key, value]) => {
@@ -99,7 +99,7 @@ function extractFormData(formEvent: React.FormEvent, injectedData?: InjectedData
 }
 
 function submitHtmlForm(formAction: string, formEvent: React.FormEvent, injectedData?: InjectedData) {
-  const form = formEvent.currentTarget as HTMLFormElement;
+  const form = formEvent.target as HTMLFormElement;
 
   // Append dynamically passed values to the form
   Object.entries(filterInjectedData(injectedData)).forEach(([key, value]) => {
@@ -119,7 +119,6 @@ function submitHtmlForm(formAction: string, formEvent: React.FormEvent, injected
   form.setAttribute('method', 'POST');
   form.setAttribute('enctype', 'multipart/form-data');
 
-  document.body.appendChild(form);
   form.submit();
 }
 
